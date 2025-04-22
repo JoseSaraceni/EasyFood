@@ -1,12 +1,13 @@
-package com.example.easyfood
+package com.example.easyfood.activites
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.example.easyfood.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -22,9 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     // Controle de navegação de paginas //
 
-    val bottomNavigation = findViewById<BottomNavigationView>(R.id.btm_nav)
-    val navController = Navigation.findNavController(this,R.id.host_fragment)
+            val bottomNavigation = findViewById<BottomNavigationView>(R.id.btm_nav)
+            val navController = this.findNavController(R.id.host_fragment)
 
-        NavigationUI.setupWithNavController(bottomNavigation,navController)
+                NavigationUI.setupWithNavController(bottomNavigation,navController)
     }
 }
