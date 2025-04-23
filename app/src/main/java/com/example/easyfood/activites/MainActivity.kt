@@ -7,7 +7,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.example.easyfood.R
+import com.example.easyfood.databinding.ActivityMealBinding
+import com.example.easyfood.databinding.FragmentHomeBinding
+import com.example.easyfood.fragments.HomeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -21,11 +25,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-    // Controle de navegação de paginas //
+        // Controle de navegação de paginas //
 
-            val bottomNavigation = findViewById<BottomNavigationView>(R.id.btm_nav)
-            val navController = this.findNavController(R.id.host_fragment)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.btm_nav)
+        val navController = this.findNavController(R.id.host_fragment)
 
-                NavigationUI.setupWithNavController(bottomNavigation,navController)
+        NavigationUI.setupWithNavController(bottomNavigation,navController)
     }
 }

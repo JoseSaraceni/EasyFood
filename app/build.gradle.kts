@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    val lifecycle_version = "2.4.0-rc01"
     val nav_version = "2.8.9"
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -67,6 +68,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.3.0")
 
+    //videoModel mvvm
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    //implementation ("android.arch.lifecycle:extensions:2.2.0")
 
+
+    // GitHub
     implementation ("com.github.bumptech.glide:glide:4.12.0")
 }
