@@ -41,6 +41,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btm_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_favorites"
@@ -65,37 +66,35 @@
                 android:id="@+id/linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category: Beef"
-                    android:textStyle="bold"
-                    android:textColor="@color/g_black"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_categories"
                     android:drawableTint="@color/g_black"
-                    android:layout_weight="1"
-                />
+                    android:text="Category: Beef"
+                    android:textColor="@color/g_black"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_area"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Area: Palestine"
-                    android:textStyle="bold"
-                    android:textColor="@color/g_black"
+                    android:layout_weight="1"
                     android:drawableLeft="@drawable/ic_location"
                     android:drawableTint="@color/g_black"
-                    android:layout_weight="1"
-                    />
+                    android:text="Area: Palestine"
+                    android:textColor="@color/g_black"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -104,26 +103,23 @@
                 android:id="@+id/tv_instructions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="- Instructions: "
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout"
-                android:layout_marginTop="@dimen/_7sdp"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
+                android:layout_marginTop="@dimen/_7sdp"
                 android:fontFamily="@font/myfont"
-                android:textSize="@dimen/_13sdp"
-            />
+                android:text="- Instructions: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/tv_instructions"
-                app:layout_constraintTop_toBottomOf="@+id/tv_instructions"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:textColor="@color/black"
-                />
-
+                app:layout_constraintStart_toStartOf="@+id/tv_instructions"
+                app:layout_constraintTop_toBottomOf="@+id/tv_instructions" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -132,11 +128,11 @@
 
     <ImageView
         android:id="@+id/img_youtube"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:layout_gravity="bottom|center"
         android:src="@drawable/ic_youtube"
-        android:layout_marginBottom="@dimen/_10sdp"/>
+        android:layout_marginBottom="@dimen/_10sdp" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_bar"

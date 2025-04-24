@@ -1,7 +1,10 @@
 package com.example.easyfood.videoModel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.easyfood.activites.MealActivity
 import com.example.easyfood.pojo.Meal
 import com.example.easyfood.pojo.MealList
 import com.example.easyfood.retrofit.RetrofilInstance
@@ -17,13 +20,23 @@ class MealViewModel():ViewModel() {
         RetrofilInstance.api.getMealDetails(id).enqueue(object : Callback<MealList> {
 
             override fun onResponse(call: Call<MealList>, response: Response<MealList>) {
-                TODO("Not yet implemented")
+                if(response.body()!=null){
+                    mealDetailsLiveData.value = response.body()!!.meals[0]
+                }
+                else{
+                    return
+                }
             }
 
             override fun onFailure(call: Call<MealList>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("MealActivity",t.message.toString())
             }
 
         })
     }
+
+    fun observeMealDetailsLiveData():LiveData<Meal>{
+        return mealDetailsLiveData
+    }
+
 }
