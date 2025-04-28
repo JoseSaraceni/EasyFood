@@ -1,5 +1,7 @@
 package com.example.easyfood.videoModel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.easyfood.pojo.Category
@@ -21,14 +23,20 @@ class CategoryMealsViewModel: ViewModel(){
                 response: Response<MealsByCategoryList>
             ) {
                 response.body()?.let { mealsList ->
+                    mealLiveData.postValue(mealsList.meals)
 
                 }
             }
 
             override fun onFailure(call: Call<MealsByCategoryList>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("CategoryMealsViewModel",t.message.toString())
             }
 
         })
     }
+
+    fun observeMealsLiveData():LiveData<List<MealsByCategory>>{
+        return mealLiveData
+    }
+
 }
