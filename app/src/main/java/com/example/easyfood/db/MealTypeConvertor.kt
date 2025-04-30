@@ -1,20 +1,16 @@
 package com.example.easyfood.db
 
-import androidx.resourceinspection.annotation.Attribute
-import androidx.room.TypeConverters
+import androidx.room.TypeConverter
 
-@TypeConverters
 class MealTypeConvertor {
-    fun fromAnyToString(attribute: Any?): String{
-     if (attribute == null)
-         return ""
-     return attribute as String
+
+    @TypeConverter
+    fun fromAnyToString(attribute: Any?): String {
+        return attribute?.toString() ?: ""
     }
 
-    @TypeConverters
-    fun fromStringToAny(attribute: String?):Any{
-        if (attribute == null)
-            return ""
+    @TypeConverter
+    fun fromStringToAny(attribute: String): Any {
         return attribute
     }
 }

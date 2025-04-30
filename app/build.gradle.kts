@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp") version "2.0.21-1.0.27"
 }
 
 android {
@@ -40,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel.android)
     val lifecycle_version = "2.4.0-rc01"
     val nav_version = "2.8.9"
     implementation(libs.androidx.core.ktx)
@@ -72,8 +74,7 @@ dependencies {
     //videoModel mvvm
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-   // implementation ("androidx.lifecycle:lifecycle-extensions:$lifecycle_version='2.0.0-rc1")
-   // implementation ("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version='2.0.0-rc1")
+
 
 
     // GitHub
@@ -82,6 +83,14 @@ dependencies {
     //Room
     val room_version = "2.7.1"
     implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
