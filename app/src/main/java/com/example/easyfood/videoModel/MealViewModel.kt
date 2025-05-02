@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.easyfood.activites.MealActivity
 import com.example.easyfood.db.MealDatabase
 import com.example.easyfood.pojo.Meal
 import com.example.easyfood.pojo.MealList
@@ -45,12 +44,6 @@ class MealViewModel( val mealDatabase : MealDatabase) :ViewModel() {
     fun insertMeal(meal:Meal){
         viewModelScope.launch {
             mealDatabase.mealDao().upsert(meal)
-        }
-    }
-
-    fun deleteMeal(meal:Meal){
-        viewModelScope.launch {
-            mealDatabase.mealDao().delete(meal)
         }
     }
 
