@@ -23,6 +23,7 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
     private var popularItemsLiveData = MutableLiveData<List<MealsByCategory>>()
     private var categoriesLiveData = MutableLiveData<List<Category>>()
     private var favoritesMewsLiveData = mealDatabase.mealDao().getAllMeals()
+    private var bottomSheetMealLiveData = MutableLiveData<Meal>()
 
     fun getRandomMeal(){
         RetrofilInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
@@ -87,15 +88,38 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
         return favoritesMewsLiveData
     }
 
-    fun deleteMeal(meal:Meal){
-        viewModelScope.launch {
-            mealDatabase.mealDao().delete(meal)
-        }
-    }
+    fun getMealById(id:String) {
+        RetrofilInstance.api.getMealDetails(id).enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList?>, response: Response<MealList?>) {
+                val meal = response.body()?.meals?.first()
+                meal?.let { meal ->
+                    {
+                        bottomSheetMealLiveData.postValue(meal)
+                    }
+                }
+            }
 
-    fun insertMeal(meal:Meal){
-        viewModelScope.launch {
-            mealDatabase.mealDao().upsert(meal)
+            override fun onFailure(
+                call: Call<MealList?>,
+                t: Throwable
+            ) {
+                Log.e("HomeViewModel", t.message.toString())
+            }
+
+        })
+
+        fun deleteMeal(meal: Meal) {
+            viewModelScope.launch {
+                mealDatabase.mealDao().delete(meal)
+            }
         }
+
+        fun insertMeal(meal: Meal) {
+            viewModelScope.launch {
+                mealDatabase.mealDao().upsert(meal)
+            }
+        }
+
     }
+    fun observeBottomSheetMeal() : LiveData<Meal> = bottomSheetMealLiveData
 }
