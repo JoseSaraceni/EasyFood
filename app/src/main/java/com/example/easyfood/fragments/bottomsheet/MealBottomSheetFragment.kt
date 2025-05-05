@@ -11,13 +11,12 @@ import com.example.easyfood.R
 import com.example.easyfood.activites.MainActivity
 import com.example.easyfood.databinding.FragmentMealBottomSheetBinding
 import com.example.easyfood.videoModel.HomeViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val MEAL_ID = "param1"
 
 
-class MealBottomSheetFragment : Fragment() {
+class MealBottomSheetFragment : BottomSheetDialogFragment() {
     private var mealId: String? = null
     private lateinit var binding: FragmentMealBottomSheetBinding
     private lateinit var viewModel: HomeViewModel
@@ -42,7 +41,9 @@ class MealBottomSheetFragment : Fragment() {
 
         mealId?.let{viewModel.getMealById(it)}
 
+
         observeBottomSheetMeal()
+
     }
 
     private fun observeBottomSheetMeal() {

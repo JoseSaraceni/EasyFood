@@ -72,6 +72,26 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
         })
     }
 
+    fun getMealById(id:String) {
+        RetrofilInstance.api.getMealDetails(id).enqueue(object : Callback<MealList> {
+            override fun onResponse(call: Call<MealList?>, response: Response<MealList?>) {
+                val meal = response.body()?.meals?.first()
+                meal?.let {
+                    bottomSheetMealLiveData.postValue(it)
+                }
+            }
+
+            override fun onFailure(
+                call: Call<MealList>,
+                t: Throwable
+            ) {
+                Log.e("HomeViewModel", t.message.toString())
+            }
+
+        })
+
+    }
+
     fun observeRandomMealLivedata():LiveData<Meal>{
         return randomMealLiveData
     }
@@ -88,38 +108,17 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
         return favoritesMewsLiveData
     }
 
-    fun getMealById(id:String) {
-        RetrofilInstance.api.getMealDetails(id).enqueue(object : Callback<MealList> {
-            override fun onResponse(call: Call<MealList?>, response: Response<MealList?>) {
-                val meal = response.body()?.meals?.first()
-                meal?.let { meal ->
-                    {
-                        bottomSheetMealLiveData.postValue(meal)
-                    }
-                }
-            }
-
-            override fun onFailure(
-                call: Call<MealList?>,
-                t: Throwable
-            ) {
-                Log.e("HomeViewModel", t.message.toString())
-            }
-
-        })
-
-        fun deleteMeal(meal: Meal) {
-            viewModelScope.launch {
-                mealDatabase.mealDao().delete(meal)
-            }
-        }
-
-        fun insertMeal(meal: Meal) {
-            viewModelScope.launch {
-                mealDatabase.mealDao().upsert(meal)
-            }
-        }
-
-    }
     fun observeBottomSheetMeal() : LiveData<Meal> = bottomSheetMealLiveData
+
+    fun deleteMeal(meal: Meal) {
+        viewModelScope.launch {
+            mealDatabase.mealDao().delete(meal)
+        }
+    }
+
+    fun insertMeal(meal: Meal) {
+        viewModelScope.launch {
+            mealDatabase.mealDao().upsert(meal)
+        }
+    }
 }

@@ -16,6 +16,7 @@ import com.example.easyfood.activites.MealActivity
 import com.example.easyfood.adaptors.CategoriesAdapter
 import com.example.easyfood.adaptors.MostPopularAdapter
 import com.example.easyfood.databinding.FragmentHomeBinding
+import com.example.easyfood.fragments.bottomsheet.MealBottomSheetFragment
 import com.example.easyfood.pojo.Meal
 import com.example.easyfood.videoModel.HomeViewModel
 
@@ -68,6 +69,14 @@ class HomeFragment : Fragment() {
         observeCategoriesLiveData()
         onCategoryClick()
 
+        onPopularItemLongClick()
+    }
+
+    private fun onPopularItemLongClick() {
+        popularItemsAdapter.onLongItemClick = { meal ->
+            val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
+            mealBottomSheetFragment.show(childFragmentManager,"Meal Info")
+        }
     }
 
     private fun onCategoryClick() {
@@ -83,6 +92,7 @@ class HomeFragment : Fragment() {
         binding.recViewCategories.apply {
             layoutManager = GridLayoutManager(context,3,GridLayoutManager.VERTICAL, false)
             adapter = categoriesAdapter
+
         }
     }
 
