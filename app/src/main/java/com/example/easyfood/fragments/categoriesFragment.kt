@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.easyfood.R
 import com.example.easyfood.activites.MainActivity
 import com.example.easyfood.adaptors.CategoriesAdapter
-import com.example.easyfood.adaptors.FavoritesMealsAdapter
 import com.example.easyfood.databinding.FragmentCategoriesBinding
 import com.example.easyfood.videoModel.HomeViewModel
 

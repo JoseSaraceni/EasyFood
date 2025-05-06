@@ -1,5 +1,6 @@
 package com.example.easyfood.fragments.bottomsheet
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,9 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.easyfood.R
 import com.example.easyfood.activites.MainActivity
+import com.example.easyfood.activites.MealActivity
 import com.example.easyfood.databinding.FragmentMealBottomSheetBinding
+import com.example.easyfood.fragments.HomeFragment
 import com.example.easyfood.videoModel.HomeViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -44,7 +47,26 @@ class MealBottomSheetFragment : BottomSheetDialogFragment() {
 
         observeBottomSheetMeal()
 
+        onBottomSheetDialogClick()
+
     }
+
+    private fun onBottomSheetDialogClick() {
+        binding.bottomSheet.setOnClickListener {
+            if (mealName != null && mealThumb != null){
+                val intent = Intent(activity, MealActivity::class.java)
+                intent.apply {
+                    putExtra(HomeFragment.MEAL_ID,mealId)
+                    putExtra(HomeFragment.MEAL_NAME,mealName)
+                    putExtra(HomeFragment.MEAL_THUMB,mealThumb)
+                }
+                startActivity(intent)
+            }
+        }
+    }
+
+    private var mealName:String?=null
+    private var mealThumb:String?=null
 
     private fun observeBottomSheetMeal() {
         viewModel.observeBottomSheetMeal().observe(viewLifecycleOwner, Observer{ meal->
@@ -52,6 +74,9 @@ class MealBottomSheetFragment : BottomSheetDialogFragment() {
             binding.tvBottomSheetArea.text = meal.strArea
             binding.tvBottomSheetCategory.text = meal.strCategory
             binding.tvBottomSheetMealName.text = meal.strMeal
+
+            mealName = meal.strMeal
+            mealThumb = meal.strMealThumb
         })
     }
 

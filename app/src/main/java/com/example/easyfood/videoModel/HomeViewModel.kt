@@ -24,6 +24,7 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
     private var categoriesLiveData = MutableLiveData<List<Category>>()
     private var favoritesMewsLiveData = mealDatabase.mealDao().getAllMeals()
     private var bottomSheetMealLiveData = MutableLiveData<Meal>()
+    private val searchMealsLiveData = MutableLiveData<List<Meal>>()
 
     fun getRandomMeal(){
         RetrofilInstance.api.getRandomMeal().enqueue(object : Callback<MealList> {
@@ -92,6 +93,8 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
 
     }
 
+    fun observeSearchMealsLiveData(): LiveData<List<Meal>> = searchMealsLiveData
+
     fun observeRandomMealLivedata():LiveData<Meal>{
         return randomMealLiveData
     }
@@ -121,4 +124,28 @@ class HomeViewModel( private val mealDatabase: MealDatabase): ViewModel() {
             mealDatabase.mealDao().upsert(meal)
         }
     }
+
+    fun searchMeals(searchQuery: String) = RetrofilInstance.api.serachMeals(searchQuery).enqueue(
+        object: Callback<MealList>{
+            override fun onResponse(
+                call: Call<MealList?>,
+                response: Response<MealList?>
+            ) {
+                val mealsList = response.body()?.meals
+                mealsList?.let{
+                    searchMealsLiveData.postValue(it)
+                }
+            }
+
+            override fun onFailure(
+                call: Call<MealList?>,
+                t: Throwable
+            ) {
+                Log.e("HomeViewModel", t.message.toString())
+            }
+
+        }
+    )
+
+
 }
